@@ -1,0 +1,6 @@
+*.o
+*.dylib
+test_program
+input.txt
+output.txt
+decrypted.txt
