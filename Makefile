@@ -24,3 +24,6 @@ test: all
 
 clean:
 	rm -f *.o *.dylib test_program input.txt output.txt decrypted.txt
+
+secure_copy: secure_copy.c $(LIB)
+	$(CC) secure_copy.c -o secure_copy -L. -lcaesar -pthread -Wall
