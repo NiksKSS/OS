@@ -24,6 +24,7 @@ test: all
 
 clean:
 	rm -f *.o *.dylib test_program input.txt output.txt decrypted.txt
+	rm -rf output_encrypted
 
 secure_copy: secure_copy.c $(LIB)
-	$(CC) secure_copy.c -o secure_copy -L. -lcaesar -pthread -Wall
+	$(CC) secure_copy.c -o secure_copy -L. -lcaesar -pthread -Wall -DWORKERS_COUNT=4
