@@ -2,7 +2,7 @@ CC=clang
 CFLAGS=-Wall -Wextra -pedantic -fPIC
 LIB=libcaesar.dylib
 
-all: $(LIB) test_program
+all: $(LIB) test_program secure_copy
 
 $(LIB): caesar.o
 	$(CC) -dynamiclib -o $(LIB) caesar.o
@@ -22,9 +22,9 @@ test: all
 	./test_program ./$(LIB) K output.txt decrypted.txt
 	cat decrypted.txt
 
-clean:
-	rm -f *.o *.dylib test_program input.txt output.txt decrypted.txt
-	rm -rf output_encrypted
+secure_copy: secure_copy.c rc4.c
+	$(CC) $(CFLAGS) secure_copy.c rc4.c -o secure_copy -pthread
 
-secure_copy: secure_copy.c $(LIB)
-	$(CC) secure_copy.c -o secure_copy -L. -lcaesar -pthread -Wall -DWORKERS_COUNT=4
+clean:
+	rm -f *.o *.dylib test_program input.txt output.txt decrypted.txt secure_copy
+	rm -rf output_encrypted disk.img
